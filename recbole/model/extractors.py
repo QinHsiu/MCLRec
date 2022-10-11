@@ -30,7 +30,7 @@ class Normalize(nn.Module):
         out = x.div(norm)
         return out
 
-# Feature Encoder
+# Augmenter
 class Extractor(nn.Module):
     def __init__(self,layers, activation='gelu', init_method=None):
         super(Extractor, self).__init__()
@@ -49,6 +49,7 @@ class Extractor(nn.Module):
         output=self.dense_2(output)
         if self.actfunction != None:
             output = self.actfunction(output)
+        # layer 3
         output=self.dense_3(output)
         output=self.normal(output)
         return output

@@ -105,14 +105,11 @@ class SequentialDataLoader(AbstractDataLoader):
         # normal code speeds up by removing augmentation for validation and test
         if self.config['SSL_AUG'] == 'MCLRec' and self.phase == 'train':
             self.mclrec_aug(cur_data)
-
-        
         return cur_data
     
 
-
     def mclrec_aug(self, cur_data):
-        def item_crop(seq, length, eta=1-self.config['crop_ratio']):  # 0.8 # 0.5
+        def item_crop(seq, length, eta=1-self.config['crop_ratio']):
             num_left = math.floor(length * eta)
             crop_begin = random.randint(0, length - num_left)
             croped_item_seq = np.zeros(seq.shape[0])
@@ -122,28 +119,23 @@ class SequentialDataLoader(AbstractDataLoader):
                 croped_item_seq[:num_left] = seq[crop_begin:]
             return torch.tensor(croped_item_seq, dtype=torch.long), torch.tensor(num_left, dtype=torch.long)
 
-        def item_mask(seq, length, gamma=self.config['mask_ratio']):  # 0.7 #0.5
-            num_mask = math.floor(length * gamma)  # mask的数目
+        def item_mask(seq, length, gamma=self.config['mask_ratio']):
+            num_mask = math.floor(length * gamma)
             mask_index = random.sample(range(length), k=num_mask)
-            masked_item_seq = seq.tolist()#seq[:]#copy.deepcopy(seq)
+            masked_item_seq = seq.tolist()
             masked_item_seq=torch.tensor(masked_item_seq,dtype=torch.long)
-            masked_item_seq[mask_index] =0 #torch.arange(1,len(mask_index)+1,dtype=torch.long)  # token 0 has been used for semantic masking
-            # print("mask: ",seq,masked_item_seq)
+            masked_item_seq[mask_index] =0
             return masked_item_seq, length
 
-        def item_reorder(seq, length, beta=self.config['reorder_ratio']):  # 0.2 #0.8
-            num_reorder = math.floor(length * beta)  # reorder的长度
+        def item_reorder(seq, length, beta=self.config['reorder_ratio']):
+            num_reorder = math.floor(length * beta)
             reorder_begin = random.randint(0, length - num_reorder)
-            # reordered_item_seq = seq[:]#copy.deepcopy(seq)
             reordered_item_seq = seq.tolist()
             subsequence = reordered_item_seq[reorder_begin:reorder_begin + num_reorder]
-            # print("sub: ", subsequence)
             random.shuffle(subsequence)
-            # print("sub: ",subsequence)
             reordered_item_seq = reordered_item_seq[:reorder_begin] + subsequence + reordered_item_seq[
                                                                                     reorder_begin + num_reorder:]
             reordered_item_seq = torch.tensor(reordered_item_seq, dtype=torch.long)
-            # print("reorder: ",seq,reordered_item_seq)
             return reordered_item_seq, length
         
         seqs = cur_data['item_id_list']

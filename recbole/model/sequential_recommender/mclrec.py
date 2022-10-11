@@ -129,7 +129,7 @@ class MCLRec(SequentialRecommender):
         negative_samples = sim[mask].reshape(N, -1)
         return positive_samples,negative_samples
 
-    def meta_contrast_rl_1(self,a, b):
+    def meta_contrast_rl(self,a, b):
         ori_p, ori_n = self.contrast(a, b, "dot")
         min_positive_value, min_pos_pos = torch.min(ori_p, dim=-1)
         max_negative_value, max_neg_pos = torch.max(ori_n, dim=-1)
@@ -145,9 +145,9 @@ class MCLRec(SequentialRecommender):
 
     def meta_rl(self,sequence_output_0, sequence_output_1,sequence_output_2,sequence_output_3):
         rl_loss=0.
-        rl_loss+=self.meta_contrast_rl_1(sequence_output_0,sequence_output_3)
-        rl_loss+=self.meta_contrast_rl_1(sequence_output_1,sequence_output_2)
-        rl_loss+=self.meta_contrast_rl_1(sequence_output_2,sequence_output_3)
+        rl_loss+=self.meta_contrast_rl(sequence_output_0,sequence_output_3)
+        rl_loss+=self.meta_contrast_rl(sequence_output_1,sequence_output_2)
+        rl_loss+=self.meta_contrast_rl(sequence_output_2,sequence_output_3)
         return 0.1*rl_loss
 
     def meta_contrast(self, sequence_output_0, sequence_output_1,meta_aug, mode):
@@ -162,6 +162,7 @@ class MCLRec(SequentialRecommender):
         batch_size = sequence_output_0.shape[0]
         aug_1,aug_2=meta_aug
         use_rl=self.use_rl
+        # -------------------------------------------------step1-------------------------------------------------
         if mode == "step1":
             sequence_output_2 = aug_1(sequence_output_0)
             sequence_output_3 = aug_2(sequence_output_1)
@@ -178,6 +179,7 @@ class MCLRec(SequentialRecommender):
             cl_loss = cl_loss_0 + cl_loss_1 + cl_loss_2
             if use_rl:
                 cl_loss+=self.meta_rl(sequence_output_0,sequence_output_1,sequence_output_2,sequence_output_3)
+        # -------------------------------------------------step2-------------------------------------------------
         elif mode == "step2":
             sequence_output_2 = aug_1(sequence_output_0)
             sequence_output_3 = aug_2(sequence_output_1)
@@ -194,6 +196,7 @@ class MCLRec(SequentialRecommender):
             cl_loss = cl_loss_0 + cl_loss_1 + cl_loss_2
             if use_rl:
                 cl_loss+=self.meta_rl(sequence_output_0,sequence_output_1,sequence_output_2,sequence_output_3)
+        # -------------------------------------------------step3-------------------------------------------------
         else:
             sequence_output_2 = aug_1(sequence_output_0)
             sequence_output_3 = aug_2(sequence_output_1)
@@ -223,16 +226,14 @@ class MCLRec(SequentialRecommender):
             pos_score = torch.sum(seq_output * pos_items_emb, dim=-1)  # [B]
             neg_score = torch.sum(seq_output * neg_items_emb, dim=-1)  # [B]
             loss = self.loss_fct(pos_score, neg_score)
-        else:  # self.loss_type = 'CE'
+        else:
             if mode=="step2":
                 loss=0.
             else:
                 test_item_emb = self.item_embedding.weight[:self.n_items]  # unpad the augmentation mask
                 logits = torch.matmul(seq_output, test_item_emb.transpose(0, 1))
                 loss = self.loss_fct(logits, pos_items)
-        
-        # NCE
-        # aug_item_seq1, aug_len1, aug_item_seq2, aug_len2 = self.augment(item_seq, item_seq_len)
+
         aug_item_seq1, aug_len1, aug_item_seq2, aug_len2 = \
             interaction['aug1'], interaction['aug_len1'], interaction['aug2'], interaction['aug_len2']
         seq_output1 = self.forward(aug_item_seq1, aug_len1)
