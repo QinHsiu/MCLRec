@@ -69,6 +69,6 @@ Please train the model using the Python script `run_seq.py`.
 ​	You can run the following command to train the model on Yelp datasets:
 
 ```
-python run_seq.py --dataset=Yelp --epochs=100 --use_rl=1 --joint=0 train_batch_size=256 --lmd=0.03 --beta=0.04 --sim='dot'
+python run_seq.py --dataset=Yelp --epochs=100 --use_rl=1 --joint=0 train_batch_size=256 --lmd=0.03 --beta=0.1 --sim='dot'
 ```
 
