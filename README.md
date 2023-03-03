@@ -7,6 +7,10 @@ This is our Pytorch implementation for the paper: "**Meta-optimized Contrastive 
 * Pytorch>=1.7.0
 * Python>=3.7 
 
+## Model Overview
+
+![avator](./pic/model.png)
+
 ## Usage
 
 Please run the following command to install all the requirements:  
