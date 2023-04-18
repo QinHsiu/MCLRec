@@ -98,3 +98,17 @@ N represents Normalized Discounted Cumulative Gain(NDCG) and H represents Hit Ra
 ## Acknowledgment
 
 - Transformer and training pipeline are implemented based on [Recbole](https://github.com/RUCAIBox/RecBole). Thanks them for providing efficient implementation.
+
+## Citation
+
+```
+ @article{qin2023metaoptimized,
+    title={Meta-optimized Contrastive Learning for Sequential Recommendation},
+    author={Xiuyuan Qin and Huanhuan Yuan and Pengpeng Zhao and Junhua Fang and Fuzhen Zhuang and Guanfeng Liu and Yanchi Liu and Victor Sheng},
+    year={2023},
+    eprint={2304.07763},
+    archivePrefix={arXiv},
+    primaryClass={cs.IR}
+}
+```
+- Please kindly cite our paper if this paper and the code are helpful.
