@@ -1,6 +1,6 @@
 # MCLRec
 
-This is our Pytorch implementation for the paper: "**Meta-optimized Contrastive Learning for Sequential Recommendation**".
+This is our Pytorch implementation for the paper: "**[Meta-optimized Contrastive Learning for Sequential Recommendation](https://arxiv.org/pdf/2304.07763v3.pdf)**".
 
 ## Environment  Requirement
 
