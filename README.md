@@ -78,6 +78,18 @@ Please train the model using the Python script `run_seq.py`.
 python run_seq.py --dataset=Yelp --epochs=100 --use_rl=1 --joint=0 train_batch_size=256 --lmd=0.03 --beta=0.1 --sim='dot'
 ```
 
+- or
+You can cd `scripts` and run the following command to train the model on different dataset:
+```
+bash scrips/train_{dataset name}.sh
+
+bash scripts/train_beauty.sh
+bash scripts/train_ml-1m.sh
+bash scripts/train_sports.sh
+bash scripts/train_toys.sh
+bash scripts/train_yelp.sh
+```
+
 ## Overall Performances
 
 N represents Normalized Discounted Cumulative Gain(NDCG) and H represents Hit Ratio (HR).
