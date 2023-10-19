@@ -109,6 +109,11 @@ N represents Normalized Discounted Cumulative Gain(NDCG) and H represents Hit Ra
 | Yelp    | N@5   | 0.0082 | 0.0091  | 0.0080 | 0.0101 | 0.0121   | 0.0068 | 0.0143  | 0.0151  | 0.0147   | 0.0152 | *0.0324* | 0.0154   | **0.0332** | 2.47%   |
 | Yelp    | N@20  | 0.0143 | 0.0145  | 0.0156 | 0.0179 | 0.0223   | 0.0127 | 0.0254  | 0.0263  | 0.0258   | 0.0270 | *0.0447* | 0.0266   | **0.0467** | 4.47%   |
 
+## Future Work
+- [ ] Add MCL on Graph Recommendation
+- [ ] Building Augmenters Using Different Structures
+
+
 ## Acknowledgment
 
 - Transformer and training pipeline are implemented based on [Recbole](https://github.com/RUCAIBox/RecBole). Thanks them for providing efficient implementation.
