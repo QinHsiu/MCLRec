@@ -1,0 +1,13 @@
+- [BPR](https://github.com/xiangwang1223/neural_graph_collaborative_filtering)
+- [GRU4Rec](https://github.com/slientGe/Sequential_Recommendation_Tensorflow)
+- [Caser](https://github.com/graytowne/caser_pytorch)
+- [SASRec](https://github.com/kang205/SASRec)
+- [BERT4Rec](https://github.com/FeiSun/BERT4Rec)
+- [S3Rec](https://github.com/RUCAIBox/CIKM2020-S3Rec)
+- [CL4SRec](https://github.com/RuihongQiu/DuoRec/tree/master/recbole/model/sequential_recommender)
+- [CoSeRec](https://github.com/YChen1993/CoSeRec)
+- LMA4Rec
+  - 代码未开源，是和作者沟通后获得的结果
+- [SRMA](https://github.com/salesforce/SRMA)
+- [DuoRec](https://github.com/RuihongQiu/DuoRec)
+- [ICLRec](https://github.com/salesforce/ICLRec)
