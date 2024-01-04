@@ -2,6 +2,7 @@
 # @Time   : 2024/1/4
 # @Author : QinHsiu
 # @Email  : qinhsiu@gmail.com
+# add this file in https://github.com/RUCAIBox/RecBole-GNN/recbole_gnn/model/general_recommender
 r"""
 SGL
 ################################################
