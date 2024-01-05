@@ -110,8 +110,8 @@ N represents Normalized Discounted Cumulative Gain(NDCG) and H represents Hit Ra
 | Yelp    | N@20  | 0.0143 | 0.0145  | 0.0156 | 0.0179 | 0.0223   | 0.0127 | 0.0254  | 0.0263  | 0.0258   | 0.0270 | *0.0447* | 0.0266   | **0.0467** | 4.47%   |
 
 ## Future Work
-- [√] Add MCL on Graph Recommendation
-- [ ] Building Augmenters Using Different Structures
+- [x] Add MCL on Graph Recommendation
+- [x] Building Augmenters Using Different Structures
 
 
 ## Acknowledgment
